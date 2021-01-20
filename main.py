@@ -13,7 +13,7 @@ def index():
 
 
 @app.get("/example/")
-def get_query_parameter(start: int, limit: int):
+def get_query_parameter(start: int = 0, limit: int = 0):
     return JSONResponse(
         content={"message": f"start: {start} limit: {limit}"},
         status_code=200,
@@ -72,11 +72,12 @@ def get_books_by_id(book_id: int):
     ]
 
     book_filter = list(filter(lambda book: book["book_id"] == book_id, dict_books))
-    result = filter_book[0] if len(filter_book) > 0 else []
+    result = book_filter[0] if len(book_filter) > 0 else []
     return JSONResponse(content={"status": "ok", "data": result}, status_code=200)
 
 
 class Books(BaseModel):
+    id: str
     name: str
     page: int
 
@@ -85,14 +86,16 @@ class Books(BaseModel):
 def create_books(req_body: Books):
     req_body_dict = req_body.dict()
 
+    id = req_body_dict["id"]
     name = req_body_dict["name"]
     page = req_body_dict["page"]
 
+    print("[ Log ] name", id)
     print("[ Log ] name", name)
     print("[ Log ] page", page)
 
     mock_response = {
-        "_id": 4,
+        "id": id,
         "name": name,
         "page": page,
     }
@@ -102,19 +105,21 @@ def create_books(req_body: Books):
 
 
 class updateBooks(BaseModel):
-    book_id: str
     name: str = ""
     page: int = 0
 
 
-@app.patch("/books")
-def update_book_by_id(req_body: updateBooks):
+@app.patch("/books/{book_id}")
+def update_book_by_id(req_body: updateBooks, book_id: str):
     req_body_dict = req_body.dict()
-    books_id = req_body_dict["book_id"]
+    name = req_body_dict["name"]
+    page = req_body_dict["page"]
 
-    print("[ Log ] books_id", books_id)
+    print("[ Log ] books_id", book_id)
+    print("[ Log ] name", name)
+    print("[ Log ] page", page)
 
-    mock_response = f"Update book id {books_id} is complete !! "
+    mock_response = f"Update book id {book_id} is complete !! "
     return JSONResponse(
         content={"status": "ok", "data": mock_response}, status_code=200
     )
