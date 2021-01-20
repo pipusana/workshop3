@@ -1,0 +1,190 @@
+{
+	"info": {
+		"_postman_id": "c1d2954d-c97d-4033-9f12-3db159fcef55",
+		"name": "workshop3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Helloworld",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiUrl}}/",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Example query parameter",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiUrl}}/example/?start=1&limit=9",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						"example",
+						""
+					],
+					"query": [
+						{
+							"key": "start",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "9"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Example path parameter",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiUrl}}/profile/pipusana",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						"profile",
+						"pipusana"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find books",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiUrl}}/books",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find books by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiUrl}}/books/3",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						"books",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insert books",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"4\",\n    \"name\": \"Harry Potter and the Goblet of Fire\",\n    \"page\": 636\n}"
+				},
+				"url": {
+					"raw": "{{apiUrl}}/books",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update books",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"book_id\": 4,\n    \"name\": \"Harry Potter and the Goblet of Fire\",\n    \"page\": 500\n}"
+				},
+				"url": {
+					"raw": "{{apiUrl}}/books/4",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						"books",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete books",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"book_id\": 4,\n    \"name\": \"Harry Potter and the Goblet of Fire\",\n    \"page\": 500\n}"
+				},
+				"url": {
+					"raw": "{{apiUrl}}/books/4",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						"books",
+						"4"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
