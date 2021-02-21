@@ -12,18 +12,24 @@ def index():
     return JSONResponse(content={"message": "Hello,  World"}, status_code=200)
 
 
-@app.get("/example/")
+@app.get("/profiles/")
 def get_query_parameter(start: int = 0, limit: int = 0):
+
+    response = {"message": f"start: {start} limit: {limit}"}
+
     return JSONResponse(
-        content={"message": f"start: {start} limit: {limit}"},
+        content=response,
         status_code=200,
     )
 
 
-@app.get("/profile/{name}")
+@app.get("/profiles/{name}")
 def get_path_parameter(name: str):
+
+    response = {"message": f"My name is: {name}"}
+
     return JSONResponse(
-        content={"message": f"My name is: {name}"},
+        content=response,
         status_code=200,
     )
 
@@ -48,7 +54,9 @@ def get_books():
         },
     ]
 
-    return JSONResponse(content={"status": "ok", "data": dict_books}, status_code=200)
+    response = {"status": "ok", "data": dict_books}
+
+    return JSONResponse(content=response, status_code=200)
 
 
 @app.get("/books/{book_id}")
@@ -71,19 +79,24 @@ def get_books_by_id(book_id: int):
         },
     ]
 
-    book_filter = list(filter(lambda book: book["book_id"] == book_id, dict_books))
-    result = book_filter[0] if len(book_filter) > 0 else []
-    return JSONResponse(content={"status": "ok", "data": result}, status_code=200)
+    book_filter = {}
+    for book in dict_books:
+        if book["book_id"] == book_id:
+            book_filter = book
+
+    response = {"status": "ok", "data": book_filter}
+
+    return JSONResponse(content=response, status_code=200)
 
 
-class Books(BaseModel):
+class createBookPayload(BaseModel):
     id: str
     name: str
     page: int
 
 
 @app.post("/books")
-def create_books(req_body: Books):
+def create_books(req_body: createBookPayload):
     req_body_dict = req_body.dict()
 
     id = req_body_dict["id"]
@@ -94,24 +107,26 @@ def create_books(req_body: Books):
     print("[ Log ] name", name)
     print("[ Log ] page", page)
 
-    mock_response = {
+    book = {
         "id": id,
         "name": name,
         "page": page,
     }
-    return JSONResponse(
-        content={"status": "ok", "data": mock_response}, status_code=201
-    )
+
+    response = {"status": "ok", "data": book}
+
+    return JSONResponse(content=response, status_code=201)
 
 
-class updateBooks(BaseModel):
+class updateBookPayload(BaseModel):
     name: str = ""
     page: int = 0
 
 
 @app.patch("/books/{book_id}")
-def update_book_by_id(req_body: updateBooks, book_id: str):
+def update_book_by_id(req_body: updateBookPayload, book_id: str):
     req_body_dict = req_body.dict()
+
     name = req_body_dict["name"]
     page = req_body_dict["page"]
 
@@ -119,21 +134,19 @@ def update_book_by_id(req_body: updateBooks, book_id: str):
     print("[ Log ] name", name)
     print("[ Log ] page", page)
 
-    mock_response = f"Update book id {book_id} is complete !! "
-    return JSONResponse(
-        content={"status": "ok", "data": mock_response}, status_code=200
-    )
+    update_message = f"Update book id {book_id} is complete !! "
+    response = {"status": "ok", "data": update_message}
+    return JSONResponse(content=response, status_code=200)
 
 
 @app.delete("/books/{book_id}")
-def delete_book_by_id(book_id: int):
+def delete_book_by_id(book_id: str):
 
     print("[ Log ] Delete Book Id: ", book_id)
 
-    mock_response = f"Delete book id {book_id} is complete !! "
-    return JSONResponse(
-        content={"status": "ok", "data": mock_response}, status_code=200
-    )
+    delete_message = f"Delete book id {book_id} is complete !! "
+    response = {"status": "ok", "data": delete_message}
+    return JSONResponse(content=response, status_code=200)
 
 
 if __name__ == "__main__":
