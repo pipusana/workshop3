@@ -1,0 +1,32 @@
+http method เหมือน action อย่างนึง Ex.
+http method        action
+    get             find
+    post            insert / create
+    put             update ทั้งหมด
+    patch           update บางค่าที่ต้องการ update ไม่จำเป็นต้อง update ทั้งหมด
+    delete          delete
+
+
+Route
+
+1.
+http method         path                         ความหมาย                        ตัวอย่าง
+    get        /nisits                 ต้องการค้นหานิสิตทั้งหมด
+    get        /nisits/{nisit_id}      ต้องการค้นหานิสิตที่มี id นี้            /nisit/5630252488
+    post       /nisits                 ต้องการเพิ่มนิสิต
+    patch      /nisits                 ต้องการ update ค่าของนิสิตทั้งหมด   
+    patch      /nisits/{nisit_id}      ต้องการ update ค่าของนิสิตที่มี id นี้   /nisit/5630252488
+    delete     /nisits                 ต้องการ delete ค่าของนิสิตทั้งหมด
+    delete     /nisits/{nisit_id}      ต้องการ delete ค่าของนิสิตที่มี id นี้   /nisit/5630252488
+
+2.
+http method         path                             ความหมาย                        ตัวอย่าง
+    get        /nisits                       ต้องการค้นหานิสิตทั้งหมด
+    get        /nisits/{nisit_id}            ต้องการค้นหานิสิตที่มี id นี้            /nisit/5630252488
+    post      /create/nisits                 ต้องการเพิ่มนิสิต
+    post      /update/nisits                 ต้องการ update ค่าของนิสิตทั้งหมด   
+    post      /update/nisits/{nisit_id}      ต้องการ update ค่าของนิสิตที่มี id นี้   /nisit/5630252488
+    post      /delete/nisits                 ต้องการ delete ค่าของนิสิตทั้งหมด
+    post      /delete/nisits/{nisit_id}      ต้องการ delete ค่าของนิสิตที่มี id นี้   /nisit/5630252488
+
+
